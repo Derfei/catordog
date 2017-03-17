@@ -32,3 +32,5 @@
 --------cat.3.jpg
 --------*********
 ```
+#训练数据分享
+http://pan.baidu.com/s/1i4DBjUH
