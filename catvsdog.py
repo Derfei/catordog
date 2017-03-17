@@ -221,17 +221,17 @@ cross_entropy = tf.reduce_mean(-tf.reduce_sum(-ys*tf.log(prediction),
 	reduction_indices=[1]))
 
 #采用梯度下降法进行训练
-train_step = tf.train.GradientDescentOptimizer(0.001).minimize(cross_entropy)
+train_step = tf.train.RMSPropOptimizer(0.0001).minimize(cross_entropy)
 
 #初始化变量
 sess = tf.Session()
-sess.run(tf.initialize_all_variables())
+sess.run(tf.global_variables_initializer())
 
 for i in range(2000):
 	#每次训练500个，计算的是每次训练完的最后标志位
-	offset = (i * 500) % (train_labels.shape[0] - 500)
-	batch_xs = train_dataset[offset:(offset + 500), :, :, :]
-	batch_ys = train_labels[offset:(offset + 500), :]
+	offset = (i * 100) % (train_labels.shape[0] - 100)
+	batch_xs = train_dataset[offset:(offset + 100), :, :, :]
+	batch_ys = train_labels[offset:(offset + 100), :]
 	sess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 0.8})
     #每五十步计算一次准确率
 	if i % 50 == 0:
